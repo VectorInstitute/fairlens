@@ -26,7 +26,7 @@ We evaluate models on three domains - **hiring**, **legal**, and **healthcare** 
 
 Faces come from [UTKFace](https://susanqq.github.io/UTKFace/), which provides age, gender, and race labels for every image. Analyses report gaps across those groups rather than treating the model as a single aggregate score.
 
-Supported models (each in its own folder under `src/fairlens/models/`): GPT-4o-mini, GPT-5.2, Qwen2.5-VL, Qwen3-VL, InternVL3, Llama 3.2 Vision, LLaVA-1.6, MiniCPM-V, Ovis 2.5, and CogVLM2.
+Supported models (each in its own folder under `src/fairlens/models/`): GPT-5.2, Qwen2.5-VL, Qwen3-VL, InternVL3, Llama 3.2 Vision, LLaVA-1.6, Ovis 2.5, and CogVLM.
 
 ## Repository structure
 
@@ -77,23 +77,21 @@ UTKFace is released for non-commercial research; see the [dataset page](https://
 Shared questions and system prompts live in `src/fairlens/config/questions.json`. Per-model generation length is in `src/fairlens/config/models.yaml`.
 
 ```bash
-cd src/fairlens/models/gpt-4o-mini
-python gpt-4o-mini-vl-inference.py --dataset cropped
-# or: sbatch gpt-4o-mini-vl-inference-job.sh
+cd src/fairlens/models/qwen2_5_VL
+python qwen2.5_vl_inference.py --dataset cropped
+# or: sbatch qwen2.5_vl_inference-job.sh
 ```
 
 Outputs are written next to the script as `results_cropped_<Model>/{hiring,legal,healthcare}_results.json`. Already-scored images are skipped on rerun.
 
 | Folder | Script |
 | --- | --- |
-| `gpt-4o-mini` | `gpt-4o-mini-vl-inference.py` |
 | `gpt-5.2-reasoning` | `gpt-5-2-vl-inference.py` |
 | `qwen2_5_VL` | `qwen2.5_vl_inference.py` |
 | `qwen3_vl` | `qwen3_vl_inference.py` |
 | `internVL3` | `internvl3_inference.py` |
 | `llama3_2_vision` | `llama.py` |
 | `llava1_6` | `llava.py` |
-| `minicpm-2-6` | `minicpm-2-6-vl-inference.py` |
 | `ovis2.5` | `ovis2.5_inference.py` |
 | `cogvlm` | `cogvlm-19b-vl-inference.py` |
 
@@ -122,10 +120,10 @@ Expected answers, adverse labels, and association tags are fields on each item i
 
 ```bash
 cd src/fairlens/eval/judge
-sbatch eval_job_deepeval.sh gpt-4o-mini hiring
+sbatch eval_job_deepeval.sh cogvlm hiring
 bash launch_all.sh          # all models × domains
 python build_master.py
-python metrics_model.py --model gpt-4o-mini
+python metrics_model.py --model cogvlm
 python export_metrics_workbook.py
 ```
 
