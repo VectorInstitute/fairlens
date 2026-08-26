@@ -1,0 +1,16 @@
+#!/bin/bash
+#SBATCH --job-name=ovis2.5_inference
+#SBATCH --output=ovis2.5_inference%j.out
+#SBATCH --error=ovis2.5_inference%j.err
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=4
+#SBATCH --gres=gpu:a100:1
+#SBATCH --mem=32G
+#SBATCH --time=72:00:00
+
+cd "$(dirname "$0")"
+if [ -f .venv/bin/activate ]; then
+    source .venv/bin/activate
+fi
+
+python ovis2.5_inference.py --dataset cropped

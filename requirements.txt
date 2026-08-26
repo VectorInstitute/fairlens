@@ -1,0 +1,19 @@
+# FairLens — pip install -r requirements.txt
+# Local VLMs also need a CUDA-enabled torch/torchvision build for your cluster.
+
+# inference
+torch
+torchvision
+transformers
+accelerate
+pillow
+pandas
+tqdm
+openai
+python-dotenv
+qwen-vl-utils
+
+# eval
+pyyaml
+deepeval
+openpyxl

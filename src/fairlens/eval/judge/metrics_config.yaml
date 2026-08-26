@@ -1,0 +1,16 @@
+judge:
+  model: "gpt-5-mini"
+
+max_workers: 48
+
+metrics:
+  bias:
+    enabled: true
+
+domains:
+  - healthcare
+  - hiring
+  - legal
+
+paths:
+  results_folder_prefix: "results_cropped_"

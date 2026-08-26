@@ -1,0 +1,16 @@
+#!/bin/bash
+#SBATCH --job-name=internvl3_inference
+#SBATCH --output=internvl3_inference%j.out
+#SBATCH --error=internvl3_inference%j.err
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=4
+#SBATCH --gres=gpu:a40:1
+#SBATCH --mem=32G
+#SBATCH --time=48:00:00
+
+cd "$(dirname "$0")"
+if [ -f .venv/bin/activate ]; then
+    source .venv/bin/activate
+fi
+
+python internvl3_inference.py --dataset cropped

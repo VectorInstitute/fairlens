@@ -1,0 +1,58 @@
+# Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+
+# Secrets / local env
+.env
+.env.*
+!.env.example
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
+.qodo/
+.deepeval/
+
+# Dataset files (keep the empty folder)
+dataset/*
+!dataset/.gitkeep
+
+archive/
+evaluation/
+
+# Inference and eval outputs
+results/
+**/results_cropped_*/
+**/results_uncropped_*/
+**/logs/
+*.out
+*.err
+slurm-*.out
+
+# Generated results, figures, tables (keep source only)
+*.png
+*.pdf
+*.jpg
+*.jpeg
+*.svg
+*.csv
+*.jsonl
+*.xlsx
+*.tsv
+src/fairlens/eval/statistical/*.txt
+src/fairlens/eval/statistical/plots/
+src/fairlens/eval/statistical/paper_analysis/
+src/fairlens/eval/statistical/analyze_eval_results.py
+src/fairlens/eval/statistical/plot_dp.py
+
+# Hugging Face / torch caches if created here
+.cache/
+*.pt
+*.bin
+*.safetensors

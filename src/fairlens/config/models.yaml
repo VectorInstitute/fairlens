@@ -1,0 +1,12 @@
+default_max_tokens: 128
+models:
+  cogvlm: 128
+  gpt-4o-mini: 128
+  gpt-5.2-reasoning: 128
+  internVL3: 128
+  llama3_2_vision: 128
+  llava1_6: 128
+  minicpm-2-6: 128
+  ovis2.5: 128
+  qwen2_5_VL: 128
+  qwen3_vl: 128
