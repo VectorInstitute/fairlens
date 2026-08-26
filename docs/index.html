@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FairLens | Benchmarking Fairness in Vision–Language Models</title>
+  <meta name="description" content="FairLens is a benchmark for evaluating fairness in vision–language model responses to high-stakes questions about people in hiring, legal, and healthcare settings.">
+  <link rel="icon" type="image/png" href="assets/VectorLogo.png">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title">FairLens: Benchmarking Fairness in Vision–Language Models for High-Stakes Decision-Making</h1>
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">
+                <a href="https://scholar.google.com/citations?user=lEWvRbIAAAAJ&amp;hl=en">Vahid Reza Khazaie</a>,
+              </span>
+              <span class="author-block">
+                <a href="https://scholar.google.com/citations?user=Fmhn-MQAAAAJ&amp;hl=en">Ahmed Y. Radwan</a>,
+              </span>
+              <span class="author-block">
+                <a href="https://scholar.google.com/citations?user=chcz7RMAAAAJ&amp;hl=en">Shaina Raza</a>
+              </span>
+            </div>
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">Vector Institute for Artificial Intelligence</span>
+            </div>
+
+            <div class="column has-text-centered">
+              <div class="publication-links">
+                <span class="link-block">
+                  <a href="https://arxiv.org/abs/xxxx.xxxxx" class="external-link button is-normal is-rounded is-dark">
+                    <img class="link-logo" src="assets/arxiv-logo.png" alt="">
+                    <span>arXiv</span>
+                  </a>
+                </span>
+                <span class="link-block">
+                  <a href="https://github.com/VectorInstitute/fairlens" class="external-link button is-normal is-rounded is-dark">
+                    <img class="link-logo" src="assets/GitHub_Logo.png" alt="">
+                    <span>Code</span>
+                  </a>
+                </span>
+                <span class="link-block">
+                  <a href="https://huggingface.co/datasets/vector-institute/fairlens" class="external-link button is-normal is-rounded is-dark">
+                    <img class="link-logo no-invert" src="assets/hf-logo.svg" alt="">
+                    <span>Dataset</span>
+                  </a>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="hero teaser">
+    <div class="container is-max-desktop">
+      <div class="hero-body">
+        <figure class="publication-banner">
+          <img src="assets/FairLens-teaser.png" alt="FairLens teaser: the same high-stakes questions asked of a face image can encode demographic assumptions about occupation, threat, and clinical role.">
+        </figure>
+        <h2 class="subtitle has-text-centered" style="margin-top: 1.25rem; color: var(--text-secondary);">
+          The same model receives the same high-stakes questions; answers can still attach role, threat, and status to appearance. The sound answer is often <em>Cannot tell</em>.
+        </h2>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3">Abstract</h2>
+          <div class="content has-text-justified">
+            <p>
+              FairLens is a benchmark for evaluating fairness in vision–language model responses to high-stakes questions about people.
+              Using held-out UTKFace images with gender, race, and age annotations, we evaluate eight VLMs across hiring, legal, and healthcare scenarios.
+              Our framework measures three complementary failure modes: demographic parity over adverse outcomes, soundness with respect to logical ground truth, and associations between demographic groups and unsupported roles or statuses.
+            </p>
+            <p>
+              We find that models often struggle to abstain: they infer qualifications, threat, illness, or professional roles from a face image even when the correct answer is Cannot tell.
+              These failures are most severe in legal and healthcare settings, and small demographic parity gaps can hide harm when unsupported labels are applied broadly across groups.
+              FairLens therefore emphasizes both disparity and validity: fair high-stakes VLM behavior requires not only similar treatment across groups, but also refusal to infer qualifications, criminality, illness, or professional roles from facial appearance alone.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="background: var(--background-secondary);">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3">Benchmark</h2>
+          <div class="content has-text-justified">
+            <p>
+              Unlike standard VQA, FairLens is built around questions for which a face often should not provide sufficient evidence.
+              A photograph alone should not determine whether a person is qualified for a job, likely to pose a security threat, experiencing pain, or more likely to be a doctor than a nurse.
+              Some prompts provide task-relevant context (for example, that a candidate meets all qualifications); those test whether models follow stated evidence rather than overriding it with appearance-based assumptions.
+            </p>
+            <p>
+              The test split has 1,505 held-out adult UTKFace images (ages 25–65), stratified by gender, race/ethnicity, and age.
+              Each image is paired with 69 prompts (38 closed-ended, 31 open-ended) across hiring, legal, and healthcare, for 103,845 image–question pairs per model.
+            </p>
+          </div>
+          <div class="metric-grid">
+            <div class="metric-card">
+              <h4>Soundness</h4>
+              <p>Accuracy against logical ground truth: follow stated evidence, or answer Cannot tell when the image is insufficient.</p>
+            </div>
+            <div class="metric-card">
+              <h4>Demographic parity</h4>
+              <p>Gap in adverse-outcome rates across gender, race, and age. Small gaps can still hide uniformly unsafe behavior.</p>
+            </div>
+            <div class="metric-card">
+              <h4>Association</h4>
+              <p>Rate at which models attach unsupported roles or statuses instead of abstaining, and how that rate differs by group.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container is-max-desktop">
+      <h2 class="title is-3 has-text-centered">Dataset</h2>
+      <div class="content has-text-justified">
+        <p>
+          FairLens is released on <a href="https://huggingface.co/datasets/vector-institute/fairlens">Hugging Face</a>.
+          Faces come from <a href="https://susanqq.github.io/UTKFace/">UTKFace</a> (non-commercial research). After filtering and stratified splitting, the collection holds 15,100 images (12,087 train, 1,508 validation, 1,505 test). All reported results use the held-out test split.
+        </p>
+      </div>
+
+      <h3 class="title is-4">Table 1. Prompts per domain</h3>
+      <div class="table-wrap">
+        <table class="results-table">
+          <thead>
+            <tr>
+              <th>Domain</th>
+              <th>Closed (MC)</th>
+              <th>Open-ended</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Hiring</td><td>21</td><td>9</td><td>30</td></tr>
+            <tr><td>Legal</td><td>9</td><td>12</td><td>21</td></tr>
+            <tr><td>Healthcare</td><td>8</td><td>10</td><td>18</td></tr>
+            <tr><td>Total</td><td>38</td><td>31</td><td>69</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-caption">Number of multiple-choice (closed) and open-ended prompts per domain.</p>
+
+      <h3 class="title is-4">Table 2. Test-split demographics</h3>
+      <div class="table-wrap">
+        <table class="results-table">
+          <thead>
+            <tr>
+              <th>Attribute</th>
+              <th>Group</th>
+              <th>Count</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td rowspan="2">Gender</td><td>Male</td><td>855</td></tr>
+            <tr><td>Female</td><td>650</td></tr>
+            <tr><td rowspan="5">Race / ethnicity</td><td>White</td><td>622</td></tr>
+            <tr><td>Black</td><td>353</td></tr>
+            <tr><td>Indian</td><td>276</td></tr>
+            <tr><td>Asian</td><td>171</td></tr>
+            <tr><td>Other</td><td>83</td></tr>
+            <tr><td rowspan="3">Age</td><td>Middle-aged (30–59)</td><td>876</td></tr>
+            <tr><td>Young (&lt;30)</td><td>519</td></tr>
+            <tr><td>Senior (≥ 60)</td><td>110</td></tr>
+            <tr><td colspan="2">Total</td><td>1,505</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-caption">Demographic composition of the FairLens test split (1,505 images), stratified by gender, race/ethnicity, and age band.</p>
+    </div>
+  </section>
+
+  <section class="section" style="background: var(--background-secondary);">
+    <div class="container is-max-desktop">
+      <h2 class="title is-3 has-text-centered">Results</h2>
+      <div class="content has-text-justified">
+        <p>
+          We evaluate eight VLMs: CogVLM, GPT-5.2-reasoning, InternVL3, Llama-3.2-Vision, LLaVA-1.6, Ovis2.5, Qwen2.5-VL, and Qwen3-VL.
+          Soundness varies widely. Ovis2.5 reaches 93.8%, while LLaVA-1.6 and Llama-3.2-Vision reach 35.0% and 21.9%.
+          Llama-3.2-Vision almost always assigns a non-neutral role when the image is insufficient (association rate 99.0%), yet has the smallest association gap (0.7 pp): similar treatment across groups does not imply safe behavior.
+          GPT-5.2-reasoning has the lowest demographic parity gap (0.2 pp) and the lowest open-ended bias rate (1.8%).
+        </p>
+        <p>
+          Hiring is easiest (mean soundness 82.2%) because many prompts state qualifications. Legal (60.0%) and healthcare (56.5%) more often require abstention.
+          Association rates dwarf parity gaps: healthcare averages a 45.6% association rate against race parity of 3.4 pp. Equal outcome rates can still hide unsupported high-stakes inferences.
+        </p>
+      </div>
+
+      <h3 class="title is-4">Table 3. Model-level evaluation (averaged across domains)</h3>
+      <div class="table-wrap">
+        <table class="results-table">
+          <thead>
+            <tr>
+              <th rowspan="2">Model</th>
+              <th rowspan="2">Params.</th>
+              <th class="group-head" colspan="4">Closed-ended (MC)</th>
+              <th class="group-head">Open-ended</th>
+            </tr>
+            <tr>
+              <th>Sound. (%)</th>
+              <th>Parity gap (pp)</th>
+              <th>Assoc. rate (%)</th>
+              <th>Assoc. gap (pp)</th>
+              <th>Bias rate (%)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Ovis2.5</td><td>9B</td>
+              <td class="best">93.8</td><td>0.4</td><td class="best">5.4</td><td>7.1</td><td>12.2</td>
+            </tr>
+            <tr>
+              <td>InternVL3</td><td>9B</td>
+              <td>88.1</td><td>0.3</td><td>7.8</td><td>2.8</td><td>10.0</td>
+            </tr>
+            <tr>
+              <td>Qwen2.5-VL</td><td>7B</td>
+              <td>85.7</td><td>2.0</td><td>13.1</td><td>11.7</td><td>7.8</td>
+            </tr>
+            <tr>
+              <td>GPT-5.2-reasoning</td><td>—</td>
+              <td>77.1</td><td class="best">0.2</td><td>6.9</td><td>4.4</td><td class="best">1.8</td>
+            </tr>
+            <tr>
+              <td>Qwen3-VL</td><td>8B</td>
+              <td>65.8</td><td>1.2</td><td>31.9</td><td>8.1</td><td>11.2</td>
+            </tr>
+            <tr>
+              <td>CogVLM</td><td>19B</td>
+              <td>62.3</td><td>2.1</td><td>30.6</td><td>2.7</td><td>21.9</td>
+            </tr>
+            <tr>
+              <td>LLaVA-1.6</td><td>7B</td>
+              <td>35.0</td><td>4.0</td><td>82.2</td><td>9.3</td><td>19.5</td>
+            </tr>
+            <tr>
+              <td>Llama-3.2-Vision</td><td>11B</td>
+              <td>21.9</td><td>6.2</td><td>99.0</td><td class="best">0.7</td><td>14.6</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-caption">
+        Soundness is higher-is-better. Demographic parity gap, association rate, association gap, and open-ended bias rate are lower-is-better.
+        Gaps are in percentage points. Bold is best in each column.
+      </p>
+
+      <h3 class="title is-4">Table 4. Soundness and open-ended bias by domain</h3>
+      <div class="table-wrap">
+        <table class="results-table">
+          <thead>
+            <tr>
+              <th rowspan="2">Model</th>
+              <th class="group-head" colspan="4">Closed-ended soundness (%)</th>
+              <th class="group-head" colspan="4">Open-ended bias rate (%)</th>
+            </tr>
+            <tr>
+              <th>Hiring</th><th>Legal</th><th>Healthcare</th><th>Avg.</th>
+              <th>Hiring</th><th>Legal</th><th>Healthcare</th><th>Avg.</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>CogVLM</td><td>80.5</td><td>68.6</td><td>37.8</td><td>62.3</td><td>33.2</td><td>25.4</td><td>7.6</td><td>21.9</td></tr>
+            <tr><td>GPT-5.2-reasoning</td><td>67.4</td><td>86.4</td><td>77.7</td><td>77.1</td><td>1.0</td><td>2.5</td><td>1.7</td><td>1.8</td></tr>
+            <tr><td>InternVL3</td><td>98.4</td><td>79.3</td><td>86.7</td><td>88.1</td><td>10.0</td><td>9.5</td><td>10.6</td><td>10.0</td></tr>
+            <tr><td>Llama-3.2-Vision</td><td>54.2</td><td>7.0</td><td>4.4</td><td>21.9</td><td>21.5</td><td>13.7</td><td>7.1</td><td>14.6</td></tr>
+            <tr><td>LLaVA-1.6</td><td>66.6</td><td>26.2</td><td>12.3</td><td>35.0</td><td>24.2</td><td>23.4</td><td>7.8</td><td>19.5</td></tr>
+            <tr><td>Ovis2.5</td><td>98.5</td><td>84.3</td><td>98.5</td><td>93.8</td><td>16.9</td><td>11.3</td><td>7.3</td><td>12.2</td></tr>
+            <tr><td>Qwen2.5-VL</td><td>97.0</td><td>82.8</td><td>77.5</td><td>85.7</td><td>11.5</td><td>6.4</td><td>5.0</td><td>7.8</td></tr>
+            <tr><td>Qwen3-VL</td><td>95.0</td><td>45.7</td><td>56.8</td><td>65.8</td><td>18.4</td><td>8.8</td><td>5.5</td><td>11.2</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-caption">
+        Soundness is higher-is-better, with ground truth defined by explicit task evidence or Cannot tell when the face is insufficient.
+        OE bias rate is LLM-judge bias on open-ended responses (lower is better).
+      </p>
+
+      <h3 class="title is-4">Table 5. Domain-level averages across models</h3>
+      <div class="table-wrap">
+        <table class="results-table">
+          <thead>
+            <tr>
+              <th rowspan="2">Domain</th>
+              <th rowspan="2">Sound.</th>
+              <th class="group-head" colspan="3">Parity gap (pp)</th>
+              <th rowspan="2">Assoc.</th>
+              <th rowspan="2">A. gap</th>
+              <th class="group-head" colspan="3">OE bias (%)</th>
+            </tr>
+            <tr>
+              <th>Gen.</th><th>Race</th><th>Age</th>
+              <th>Gen.</th><th>Race</th><th>Age</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Hiring</td><td>82.2</td><td>2.2</td><td>1.9</td><td>1.6</td><td>30.0</td><td>7.0</td><td>16.9</td><td>16.8</td><td>18.3</td></tr>
+            <tr><td>Legal</td><td>60.0</td><td>1.8</td><td>2.1</td><td>1.2</td><td>27.9</td><td>6.7</td><td>12.5</td><td>12.4</td><td>13.3</td></tr>
+            <tr><td>Healthcare</td><td>56.5</td><td>2.1</td><td>3.4</td><td>2.1</td><td>45.6</td><td>3.8</td><td>6.5</td><td>6.5</td><td>7.1</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-caption">Soundness is higher-is-better; all bias and gap metrics are lower-is-better. Gaps are in percentage points.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3">Conclusion</h2>
+          <div class="content has-text-justified">
+            <p>
+              High-stakes VLM fairness cannot be reduced to equal outcome rates. Equal treatment is not enough if the model treats all groups equally badly by making unsupported inferences.
+              A robust evaluation must ask both whether demographic groups are treated similarly and whether the model’s answers are justified by the available evidence.
+              FairLens provides a framework for this combined analysis and a foundation for future mitigation, including fairness-aware prompting, LLM-judge audits of open-ended responses, intersectional evaluation, and preference-based alignment.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="background: var(--background-secondary);">
+    <div class="container is-max-desktop content">
+      <div class="bibtex-header">
+        <h2 class="title is-3" style="margin-bottom: 0;">BibTeX</h2>
+        <button class="copy-bibtex-btn" type="button" onclick="copyBibTeX()">
+          <i class="fas fa-copy"></i> <span class="copy-text">Copy</span>
+        </button>
+      </div>
+      <pre><code id="bibtex-code">@misc{fairlens2026,
+  title        = {FairLens: Benchmarking Fairness in Vision--Language Models for High-Stakes Decision-Making},
+  author       = {Khazaie, Vahid Reza and Radwan, Ahmed Y. and Raza, Shaina},
+  year         = {2026},
+  eprint       = {xxxx.xxxxx},
+  archivePrefix= {arXiv},
+  primaryClass = {cs.CV},
+  note         = {Coming soon}
+}</code></pre>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container is-max-desktop">
+      <div class="sponsor-row">
+        <a href="https://vectorinstitute.ai/"><img src="assets/VectorLogo_Black.png" alt="Vector Institute"></a>
+        <img src="assets/AIXPERTLogo.png" alt="AIXPERT">
+      </div>
+      <div class="content has-text-centered">
+        <p>
+          <strong>Contact.</strong>
+          <a href="mailto:shaina.raza@vectorinstitute.ai">Shaina Raza</a> —
+          Vector Institute for Artificial Intelligence
+        </p>
+        <p>
+          Resources provided in part by the Province of Ontario, the Government of Canada through CIFAR, and companies sponsoring the Vector Institute.
+          Funded by the EU Horizon Europe programme — AIXPERT project (Grant No. 101214389).
+        </p>
+        <p>
+          This page follows the
+          <a href="https://github.com/eliahuhorwitz/Academic-project-page-template">Academic Project Page Template</a>.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <button class="scroll-to-top" type="button" onclick="scrollToTop()" aria-label="Scroll to top">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+  <script src="js/index.js"></script>
+</body>
+</html>

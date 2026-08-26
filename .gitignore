@@ -56,3 +56,7 @@ src/fairlens/eval/statistical/plot_dp.py
 *.pt
 *.bin
 *.safetensors
+
+# Keep project-page assets
+!docs/assets/
+!docs/assets/**

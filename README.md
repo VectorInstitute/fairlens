@@ -2,6 +2,9 @@
 
 **FairLens** is a benchmark for measuring demographic bias in vision–language models (VLMs) when they are asked to make high-stakes judgments from a face photograph.
 
+**Dataset:** [Hugging Face](https://huggingface.co/datasets/vector-institute/fairlens)
+**Project page:** [`docs/`](docs/index.html)
+
 ## Overview
 
 VLMs are increasingly used in settings where a person’s appearance should not determine the outcome: screening a job candidate, assessing a security risk, or triaging a patient. FairLens tests whether models nevertheless infer competence, threat, health, or social role from a face alone.
@@ -40,6 +43,8 @@ pip install -r requirements.txt
 GPU models need a CUDA build of `torch` / `torchvision`. OpenAI models require `OPENAI_API_KEY` (or a local `.env`). Slurm jobs activate `.venv` in the model directory when that environment exists.
 
 ## Dataset
+
+[Hugging Face](https://huggingface.co/datasets/vector-institute/fairlens)
 
 Git only tracks an empty `dataset/` folder. Place UTKface locally:
 
@@ -115,3 +120,27 @@ python export_metrics_workbook.py
 ```
 
 Judge tables are written under `results/<model>/`.
+
+## Citation
+
+If you use this dataset or pipeline in your research, please cite:
+
+```bibtex
+@misc{fairlens2026,
+  title        = {FairLens: Benchmarking Fairness in Vision--Language Models for High-Stakes Decision-Making},
+  author       = {Khazaie, Vahid Reza and Radwan, Ahmed Y. and Raza, Shaina},
+  year         = {2026},
+  eprint       = {xxxx.xxxxx},
+  archivePrefix= {arXiv},
+  primaryClass = {cs.CV},
+  note         = {Coming soon}
+}
+```
+
+## Contact
+
+[Shaina Raza](mailto:shaina.raza@vectorinstitute.ai) — Vector Institute for Artificial Intelligence
+
+## Acknowledgments
+
+Resources provided in part by the Province of Ontario, the Government of Canada through CIFAR, and companies sponsoring the Vector Institute. Funded by the EU Horizon Europe programme — AIXPERT project (Grant No. 101214389).
