@@ -5,13 +5,33 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>FairLens | Benchmarking Fairness in Vision-Language Models</title>
   <meta name="description" content="FairLens is a benchmark for evaluating fairness in vision-language model responses to high-stakes questions about people in hiring, legal, and healthcare settings.">
-  <link rel="icon" type="image/png" href="assets/VectorLogo.png">
+  <link rel="icon" type="image/png" href="assets/VectorLogo_Black.png">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
   <link rel="stylesheet" href="css/index.css">
 </head>
-<body>
+<body id="top">
+  <header class="site-topbar">
+    <div class="topbar-inner">
+      <div class="topbar-logos">
+        <a href="https://vectorinstitute.ai/" class="topbar-logo-link">
+          <img class="topbar-logo topbar-logo--vector" src="assets/VectorLogo_Black.png" alt="Vector Institute">
+        </a>
+        <img class="topbar-logo topbar-logo--aixpert" src="assets/AIXPERTLogo.png" alt="AIXPERT">
+      </div>
+
+      <nav class="topbar-nav" aria-label="Page sections">
+        <a href="#abstract">Abstract</a>
+        <a href="#benchmark">Benchmark</a>
+        <a href="#dataset">Dataset</a>
+        <a href="#results">Results</a>
+        <a href="#conclusion">Conclusion</a>
+        <a href="#bibtex">BibTeX</a>
+      </nav>
+    </div>
+  </header>
+
   <section class="hero">
     <div class="hero-body">
       <div class="container is-max-desktop">
@@ -32,7 +52,6 @@
             <div class="is-size-5 publication-authors">
               <span class="author-block">Vector Institute for Artificial Intelligence</span>
             </div>
-
             <div class="column has-text-centered">
               <div class="publication-links">
                 <span class="link-block">
@@ -60,7 +79,6 @@
       </div>
     </div>
   </section>
-
   <section class="hero teaser">
     <div class="container is-max-desktop">
       <div class="hero-body">
@@ -73,8 +91,7 @@
       </div>
     </div>
   </section>
-
-  <section class="section">
+  <section class="section" id="abstract">
     <div class="container is-max-desktop">
       <div class="columns is-centered has-text-centered">
         <div class="column is-four-fifths">
@@ -95,8 +112,7 @@
       </div>
     </div>
   </section>
-
-  <section class="section" style="background: var(--background-secondary);">
+  <section class="section" id="benchmark" style="background: var(--background-secondary);">
     <div class="container is-max-desktop">
       <div class="columns is-centered has-text-centered">
         <div class="column is-four-fifths">
@@ -130,8 +146,7 @@
       </div>
     </div>
   </section>
-
-  <section class="section">
+  <section class="section" id="dataset">
     <div class="container is-max-desktop">
       <h2 class="title is-3 has-text-centered">Dataset</h2>
       <div class="content has-text-justified">
@@ -140,7 +155,6 @@
           Faces come from <a href="https://susanqq.github.io/UTKFace/">UTKFace</a> (non-commercial research). After filtering and stratified splitting, the collection holds 15,100 images (12,087 train, 1,508 validation, 1,505 test). All reported results use the held-out test split.
         </p>
       </div>
-
       <h3 class="title is-4">Table 1. Prompts per domain</h3>
       <div class="table-wrap">
         <table class="results-table">
@@ -161,7 +175,6 @@
         </table>
       </div>
       <p class="table-caption">Number of multiple-choice (closed) and open-ended prompts per domain.</p>
-
       <h3 class="title is-4">Table 2. Test-split demographics</h3>
       <div class="table-wrap">
         <table class="results-table">
@@ -190,8 +203,7 @@
       <p class="table-caption">Demographic composition of the FairLens test split (1,505 images), stratified by gender, race/ethnicity, and age band.</p>
     </div>
   </section>
-
-  <section class="section" style="background: var(--background-secondary);">
+  <section class="section" id="results" style="background: var(--background-secondary);">
     <div class="container is-max-desktop">
       <h2 class="title is-3 has-text-centered">Results</h2>
       <div class="content has-text-justified">
@@ -206,7 +218,6 @@
           Association rates dwarf parity gaps: healthcare averages a 45.6% association rate against race parity of 3.4 pp. Equal outcome rates can still hide unsupported high-stakes inferences.
         </p>
       </div>
-
       <h3 class="title is-4">Table 3. Model-level evaluation (averaged across domains)</h3>
       <div class="table-wrap">
         <table class="results-table">
@@ -265,7 +276,6 @@
         Soundness is higher-is-better. Demographic parity gap, association rate, association gap, and open-ended bias rate are lower-is-better.
         Gaps are in percentage points. Bold is best in each column.
       </p>
-
       <h3 class="title is-4">Table 4. Soundness and open-ended bias by domain</h3>
       <div class="table-wrap">
         <table class="results-table">
@@ -296,7 +306,6 @@
         Soundness is higher-is-better, with ground truth defined by explicit task evidence or Cannot tell when the face is insufficient.
         OE bias rate is LLM-judge bias on open-ended responses (lower is better).
       </p>
-
       <h3 class="title is-4">Table 5. Domain-level averages across models</h3>
       <div class="table-wrap">
         <table class="results-table">
@@ -324,8 +333,7 @@
       <p class="table-caption">Soundness is higher-is-better; all bias and gap metrics are lower-is-better. Gaps are in percentage points.</p>
     </div>
   </section>
-
-  <section class="section">
+  <section class="section" id="conclusion">
     <div class="container is-max-desktop">
       <div class="columns is-centered has-text-centered">
         <div class="column is-four-fifths">
@@ -341,8 +349,7 @@
       </div>
     </div>
   </section>
-
-  <section class="section" style="background: var(--background-secondary);">
+  <section class="section" id="bibtex" style="background: var(--background-secondary);">
     <div class="container is-max-desktop content">
       <div class="bibtex-header">
         <h2 class="title is-3" style="margin-bottom: 0;">BibTeX</h2>
@@ -361,13 +368,8 @@
 }</code></pre>
     </div>
   </section>
-
   <footer class="footer">
     <div class="container is-max-desktop">
-      <div class="sponsor-row">
-        <a href="https://vectorinstitute.ai/"><img src="assets/VectorLogo_Black.png" alt="Vector Institute"></a>
-        <img src="assets/AIXPERTLogo.png" alt="AIXPERT">
-      </div>
       <div class="content has-text-centered">
         <p>
           <strong>Contact.</strong>
@@ -385,7 +387,6 @@
       </div>
     </div>
   </footer>
-
   <button class="scroll-to-top" type="button" onclick="scrollToTop()" aria-label="Scroll to top">
     <i class="fas fa-arrow-up"></i>
   </button>

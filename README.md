@@ -1,9 +1,19 @@
-# FairLens
+<h1 align="center">FairLens: Benchmarking Fairness in Vision-Language Models for High-Stakes Decision-Making</h1>
 
-**FairLens** is a benchmark for measuring demographic bias in vision-language models (VLMs) when they are asked to make high-stakes judgments from a face photograph.
+<p align="center">
+  <a href="https://vectorinstitute.ai/"><img src="docs/assets/VectorLogo.png" alt="Vector Institute" height="64"></a>
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="docs/assets/AIXPERTLogo.png" alt="AIXPERT" height="64">
+</p>
 
-**Dataset:** [Hugging Face](https://huggingface.co/datasets/vector-institute/fairlens)
-**Project page:** [`docs/`](docs/index.html)
+<p align="center">
+  <a href="https://arxiv.org/abs/xxxx.xxxxx"><img src="https://img.shields.io/badge/arXiv-xxxx.xxxxx-b31b1b.svg" alt="arXiv"></a>
+  <a href="https://github.com/VectorInstitute/fairlens"><img src="https://img.shields.io/badge/Code-GitHub-181717.svg" alt="Code"></a>
+  <a href="https://huggingface.co/datasets/vector-institute/fairlens"><img src="https://img.shields.io/badge/Dataset-Hugging%20Face-FFD21E.svg" alt="Dataset"></a>
+  <a href="docs/index.html"><img src="https://img.shields.io/badge/Project%20page-docs-2563eb.svg" alt="Project page"></a>
+</p>
+
+**FairLens** is a benchmark for measuring demographic bias in vision-language models (VLMs) when they are asked to make high-stakes judgments from a face photograph. 
 
 ## Overview
 
