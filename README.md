@@ -1,6 +1,6 @@
 # FairLens
 
-**FairLens** is a benchmark for measuring demographic bias in vision–language models (VLMs) when they are asked to make high-stakes judgments from a face photograph.
+**FairLens** is a benchmark for measuring demographic bias in vision-language models (VLMs) when they are asked to make high-stakes judgments from a face photograph.
 
 **Dataset:** [Hugging Face](https://huggingface.co/datasets/vector-institute/fairlens)
 **Project page:** [`docs/`](docs/index.html)
@@ -9,7 +9,7 @@
 
 VLMs are increasingly used in settings where a person’s appearance should not determine the outcome: screening a job candidate, assessing a security risk, or triaging a patient. FairLens tests whether models nevertheless infer competence, threat, health, or social role from a face alone.
 
-We evaluate models on three domains—**hiring**, **legal**, and **healthcare**—using the same face images with domain-specific prompts. Each domain mixes:
+We evaluate models on three domains - **hiring**, **legal**, and **healthcare** - using the same face images with domain-specific prompts. Each domain mixes:
 
 - **Closed-ended** items (fixed options such as Yes / No / Cannot tell), used for soundness, demographic parity, and stereotypical association metrics.
 - **Open-ended** items (short free-text answers), scored for bias with an LLM-as-judge.
@@ -127,7 +127,7 @@ If you use this dataset or pipeline in your research, please cite:
 
 ```bibtex
 @misc{fairlens2026,
-  title        = {FairLens: Benchmarking Fairness in Vision--Language Models for High-Stakes Decision-Making},
+  title        = {FairLens: Benchmarking Fairness in Vision-Language Models for High-Stakes Decision-Making},
   author       = {Khazaie, Vahid Reza and Radwan, Ahmed Y. and Raza, Shaina},
   year         = {2026},
   eprint       = {xxxx.xxxxx},
@@ -139,8 +139,8 @@ If you use this dataset or pipeline in your research, please cite:
 
 ## Contact
 
-[Shaina Raza](mailto:shaina.raza@vectorinstitute.ai) — Vector Institute for Artificial Intelligence
+[Shaina Raza](mailto:shaina.raza@vectorinstitute.ai) - Vector Institute for Artificial Intelligence
 
 ## Acknowledgments
 
-Resources provided in part by the Province of Ontario, the Government of Canada through CIFAR, and companies sponsoring the Vector Institute. Funded by the EU Horizon Europe programme — AIXPERT project (Grant No. 101214389).
+Resources provided in part by the Province of Ontario, the Government of Canada through CIFAR, and companies sponsoring the Vector Institute. Funded by the EU Horizon Europe programme - AIXPERT project (Grant No. 101214389).
