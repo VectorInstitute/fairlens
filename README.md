@@ -147,7 +147,7 @@ If you use this dataset or pipeline in your research, please cite:
 
 ## Contact
 
-[Shaina Raza](mailto:shaina.raza@vectorinstitute.ai) - Vector Institute for Artificial Intelligence
+[Vahid Reza Khazaie](mailto:vahidreza.khazaie@vectorinstitute.ai ) - Vector Institute for Artificial Intelligence
 
 ## Acknowledgments
 
