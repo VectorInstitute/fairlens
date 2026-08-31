@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>FairLens | Benchmarking Fairness in Vision-Language Models</title>
-  <meta name="description" content="FairLens is a benchmark for evaluating fairness in vision-language model responses to high-stakes questions about people in hiring, legal, and healthcare settings.">
+  <meta name="description" content="FairLens is a benchmark for measuring fairness and validity of vision-language model responses in hiring, legal, and healthcare, using more than 100K image-question pairs per model.">
   <link rel="icon" type="image/png" href="assets/VectorLogo_Black.png">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
@@ -83,10 +83,10 @@
     <div class="container is-max-desktop">
       <div class="hero-body">
         <figure class="publication-banner">
-          <img src="assets/FairLens-teaser.png" alt="FairLens teaser: the same high-stakes questions asked of a face image can encode demographic assumptions about occupation, threat, and clinical role.">
+          <img src="assets/FairLens-teaser.png" alt="FairLens: the same hiring, legal, and healthcare questions are asked of every face. Responses are scored on demographic parity, soundness, demographic association, and free-text bias. A sound response abstains when the image cannot support an answer.">
         </figure>
         <h2 class="subtitle has-text-centered" style="margin-top: 1.25rem; color: var(--text-secondary);">
-          The same model receives the same high-stakes questions; answers can still attach role, threat, and status to appearance. The sound answer is often <em>Cannot tell</em>.
+          The same hiring, legal, and healthcare questions are asked of every image. Responses are scored on demographic parity, soundness, demographic association, and free-text bias. A sound response abstains when the image cannot support an answer.
         </h2>
       </div>
     </div>
@@ -98,14 +98,10 @@
           <h2 class="title is-3">Abstract</h2>
           <div class="content has-text-justified">
             <p>
-              FairLens is a benchmark for evaluating fairness in vision-language model responses to high-stakes questions about people.
-              Using held-out UTKFace images with gender, race, and age annotations, we evaluate eight VLMs across hiring, legal, and healthcare scenarios.
-              Our framework measures three complementary failure modes: demographic parity over adverse outcomes, soundness with respect to logical ground truth, and associations between demographic groups and unsupported roles or statuses.
+              Vision-language models (VLMs) are increasingly used to make decisions from visual inputs. We introduce FairLens, a benchmark and evaluation framework for measuring both the fairness and the validity of VLM responses in three high-stakes domains: hiring, legal, and healthcare. FairLens pairs real face images spanning gender, race, and age groups with closed- and open-ended questions, giving more than 100K image-question pairs per model, and evaluates responses from four complementary views: demographic parity over adverse outcome rates, soundness, demographic association over unsupported roles and statuses, and bias in free-text generation. Soundness is the central validity criterion: a response is sound when it follows the evidence stated in the question and abstains when the image cannot support an answer.
             </p>
             <p>
-              We find that models often struggle to abstain: they infer qualifications, threat, illness, or professional roles from a face image even when the correct answer is Cannot tell.
-              These failures are most severe in legal and healthcare settings, and small demographic parity gaps can hide harm when unsupported labels are applied broadly across groups.
-              FairLens therefore emphasizes both disparity and validity: fair high-stakes VLM behavior requires not only similar treatment across groups, but also refusal to infer qualifications, criminality, illness, or professional roles from facial appearance alone.
+              Evaluating eight VLMs, we find that the primary failure is unwarranted inference rather than unequal treatment. Models routinely infer qualifications, threat, illness, or professional role from a face instead of abstaining, and the weakest model does so on 99% of the questions its input cannot answer. These failures are most severe in legal and healthcare, where recognizing insufficient evidence matters most, and disparity metrics alone would miss them: parity gaps are small in absolute terms, yet when baseline adverse rates are low the same gap means one demographic group receives adverse labels several times as often as another, and a small gap can equally reflect a model that treats every group unsafely. Bias in free-text responses is only loosely coupled to multiple-choice accuracy, so correct structured answers do not imply safe generation. FairLens shows that fair high-stakes VLM behavior requires similar treatment across groups and refusal to infer high-stakes attributes from appearance, and its question suite transfers to any face corpus with demographic annotations.
             </p>
           </div>
         </div>
@@ -121,11 +117,11 @@
             <p>
               Unlike standard VQA, FairLens is built around questions for which a face often should not provide sufficient evidence.
               A photograph alone should not determine whether a person is qualified for a job, likely to pose a security threat, experiencing pain, or more likely to be a doctor than a nurse.
-              Some prompts provide task-relevant context (for example, that a candidate meets all qualifications); those test whether models follow stated evidence rather than overriding it with appearance-based assumptions.
+              Some questions provide task-relevant context (for example, that a candidate meets all qualifications); those test whether models follow stated evidence rather than overriding it with appearance-based assumptions.
             </p>
             <p>
-              The test split has 1,505 held-out adult UTKFace images (ages 25-65), stratified by gender, race/ethnicity, and age.
-              Each image is paired with 69 prompts (38 closed-ended, 31 open-ended) across hiring, legal, and healthcare, for 103,845 image-question pairs per model.
+              The evaluation set has 1,505 adult UTKFace images (ages 25-65), 10% of the filtered dataset, selected with stratified sampling and a fixed random seed.
+              Each image is paired with 69 questions (38 closed-ended, 31 open-ended) across hiring, legal, and healthcare, for 103,845 image-question pairs per model.
             </p>
           </div>
           <div class="metric-grid">
@@ -135,11 +131,15 @@
             </div>
             <div class="metric-card">
               <h4>Demographic parity</h4>
-              <p>Gap in adverse-outcome rates across gender, race, and age. Small gaps can still hide uniformly unsafe behavior.</p>
+              <p>Gap in adverse-outcome rates across gender, race, and age. Small gaps can still hide large rate ratios or uniformly unsafe behavior.</p>
             </div>
             <div class="metric-card">
               <h4>Association</h4>
               <p>Rate at which models attach unsupported roles or statuses instead of abstaining, and how that rate differs by group.</p>
+            </div>
+            <div class="metric-card">
+              <h4>Open-ended bias</h4>
+              <p>LLM-as-a-judge rate of appearance-based bias in free-text answers. Correct multiple-choice replies do not imply safe generation.</p>
             </div>
           </div>
         </div>
@@ -152,10 +152,12 @@
       <div class="content has-text-justified">
         <p>
           FairLens is released on <a href="https://huggingface.co/datasets/vector-institute/fairlens">Hugging Face</a>.
-          Faces come from <a href="https://susanqq.github.io/UTKFace/">UTKFace</a> (non-commercial research). After filtering and stratified splitting, the collection holds 15,100 images (12,087 train, 1,508 validation, 1,505 test). All reported results use the held-out test split.
+          Faces come from <a href="https://susanqq.github.io/UTKFace/">UTKFace</a> (non-commercial research).
+          We keep adults aged 25 to 65 and construct the evaluation set by randomly selecting 1,505 images, 10% of the filtered dataset, using stratified sampling with a fixed random seed.
+          All reported results are computed on this evaluation set.
         </p>
       </div>
-      <h3 class="title is-4">Table 1. Prompts per domain</h3>
+      <h3 class="title is-4">Table 1. Questions per domain</h3>
       <div class="table-wrap">
         <table class="results-table">
           <thead>
@@ -174,8 +176,8 @@
           </tbody>
         </table>
       </div>
-      <p class="table-caption">Number of multiple-choice (closed) and open-ended prompts per domain.</p>
-      <h3 class="title is-4">Table 2. Test-split demographics</h3>
+      <p class="table-caption">Number of multiple-choice (closed) and open-ended questions per domain.</p>
+      <h3 class="title is-4">Table 2. Evaluation-set demographics</h3>
       <div class="table-wrap">
         <table class="results-table">
           <thead>
@@ -188,19 +190,19 @@
           <tbody>
             <tr><td rowspan="2">Gender</td><td>Male</td><td>855</td></tr>
             <tr><td>Female</td><td>650</td></tr>
-            <tr><td rowspan="5">Race / ethnicity</td><td>White</td><td>622</td></tr>
+            <tr><td rowspan="5">Race</td><td>White</td><td>622</td></tr>
             <tr><td>Black</td><td>353</td></tr>
             <tr><td>Indian</td><td>276</td></tr>
             <tr><td>Asian</td><td>171</td></tr>
             <tr><td>Other</td><td>83</td></tr>
-            <tr><td rowspan="3">Age</td><td>Middle-aged (30-59)</td><td>876</td></tr>
-            <tr><td>Young (&lt;30)</td><td>519</td></tr>
+            <tr><td rowspan="3">Age</td><td>Young (&lt;30)</td><td>519</td></tr>
+            <tr><td>Middle-aged (30-59)</td><td>876</td></tr>
             <tr><td>Senior (≥ 60)</td><td>110</td></tr>
             <tr><td colspan="2">Total</td><td>1,505</td></tr>
           </tbody>
         </table>
       </div>
-      <p class="table-caption">Demographic composition of the FairLens test split (1,505 images), stratified by gender, race/ethnicity, and age band.</p>
+      <p class="table-caption">Demographic composition of the FairLens evaluation set (1,505 images), stratified by gender, race, and age band.</p>
     </div>
   </section>
   <section class="section" id="results" style="background: var(--background-secondary);">
@@ -214,8 +216,9 @@
           GPT-5.2-reasoning has the lowest demographic parity gap (0.2 pp) and the lowest open-ended bias rate (1.8%).
         </p>
         <p>
-          Hiring is easiest (mean soundness 82.2%) because many prompts state qualifications. Legal (60.0%) and healthcare (56.5%) more often require abstention.
+          Hiring is easiest (mean soundness 82.2%) because many questions state qualifications. Legal (60.0%) and healthcare (56.5%) more often require abstention.
           Association rates dwarf parity gaps: healthcare averages a 45.6% association rate against race parity of 3.4 pp. Equal outcome rates can still hide unsupported high-stakes inferences.
+          Open-ended bias does not track soundness: GPT-5.2-reasoning has only moderate soundness (77.1%) but the lowest free-text bias (1.8%), whereas InternVL3 is stronger on structured answers (88.1%) while still producing appearance-based reasoning in free text (10.0%).
         </p>
       </div>
       <h3 class="title is-4">Table 3. Model-level evaluation (averaged across domains)</h3>
@@ -306,31 +309,60 @@
         Soundness is higher-is-better, with ground truth defined by explicit task evidence or Cannot tell when the face is insufficient.
         OE bias rate is LLM-judge bias on open-ended responses (lower is better).
       </p>
-      <h3 class="title is-4">Table 5. Domain-level averages across models</h3>
+      <h3 class="title is-4">Table 5. Domain-level parity, association, and open-ended bias</h3>
       <div class="table-wrap">
         <table class="results-table">
           <thead>
             <tr>
               <th rowspan="2">Domain</th>
-              <th rowspan="2">Sound.</th>
               <th class="group-head" colspan="3">Parity gap (pp)</th>
-              <th rowspan="2">Assoc.</th>
-              <th rowspan="2">A. gap</th>
+              <th class="group-head" colspan="2">Demographic association</th>
               <th class="group-head" colspan="3">OE bias (%)</th>
             </tr>
             <tr>
-              <th>Gen.</th><th>Race</th><th>Age</th>
-              <th>Gen.</th><th>Race</th><th>Age</th>
+              <th>Gender</th><th>Race</th><th>Age</th>
+              <th>Assoc. rate (%)</th><th>Assoc. gap (pp)</th>
+              <th>Gender</th><th>Race</th><th>Age</th>
             </tr>
           </thead>
           <tbody>
-            <tr><td>Hiring</td><td>82.2</td><td>2.2</td><td>1.9</td><td>1.6</td><td>30.0</td><td>7.0</td><td>16.9</td><td>16.8</td><td>18.3</td></tr>
-            <tr><td>Legal</td><td>60.0</td><td>1.8</td><td>2.1</td><td>1.2</td><td>27.9</td><td>6.7</td><td>12.5</td><td>12.4</td><td>13.3</td></tr>
-            <tr><td>Healthcare</td><td>56.5</td><td>2.1</td><td>3.4</td><td>2.1</td><td>45.6</td><td>3.8</td><td>6.5</td><td>6.5</td><td>7.1</td></tr>
+            <tr><td>Hiring</td><td>2.2</td><td>1.9</td><td>1.6</td><td>30.0</td><td>7.0</td><td>16.9</td><td>16.8</td><td>18.3</td></tr>
+            <tr><td>Legal</td><td>1.8</td><td>2.1</td><td>1.2</td><td>27.9</td><td>6.7</td><td>12.5</td><td>12.4</td><td>13.3</td></tr>
+            <tr><td>Healthcare</td><td>2.1</td><td>3.4</td><td>2.1</td><td>45.6</td><td>3.8</td><td>6.5</td><td>6.5</td><td>7.1</td></tr>
           </tbody>
         </table>
       </div>
-      <p class="table-caption">Soundness is higher-is-better; all bias and gap metrics are lower-is-better. Gaps are in percentage points.</p>
+      <p class="table-caption">
+        Parity gaps are the maximum adverse-outcome rate difference across groups of that attribute (lower is better).
+        Association rate is the share of image-insufficient questions answered with a non-Cannot tell label; association gap is the maximum difference in that rate across groups.
+        OE bias is the LLM-judge bias rate on open-ended responses (lower is better).
+      </p>
+      <h3 class="title is-4">Table 6. Percentage-point gaps vs. rate ratios</h3>
+      <div class="table-wrap">
+        <table class="results-table">
+          <thead>
+            <tr>
+              <th>Model</th>
+              <th>Domain</th>
+              <th>Attr.</th>
+              <th>Groups (min / max)</th>
+              <th>r<sub>min</sub></th>
+              <th>r<sub>max</sub></th>
+              <th>Gap / Ratio</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>InternVL3</td><td>Healthcare</td><td>Race</td><td>Asian / Black</td><td>0.1%</td><td>0.9%</td><td>0.8 pp / 9.0×</td></tr>
+            <tr><td>Qwen3-VL</td><td>Hiring</td><td>Gender</td><td>Female / Male</td><td>0.3%</td><td>1.4%</td><td>1.1 pp / 4.8×</td></tr>
+            <tr><td>Qwen2.5-VL</td><td>Hiring</td><td>Gender</td><td>Female / Male</td><td>0.8%</td><td>3.5%</td><td>2.7 pp / 4.2×</td></tr>
+            <tr><td>Llama-3.2-Vision</td><td>Healthcare</td><td>Gender</td><td>Female / Male</td><td>46.2%</td><td>58.0%</td><td>11.8 pp / 1.3×</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-caption">
+        Rate ratio is max/min adverse rate over groups of that attribute.
+        A small percentage-point gap can be a large ratio when baseline rates are low; a large gap can be a modest ratio when both groups already have high adverse rates.
+      </p>
     </div>
   </section>
   <section class="section" id="conclusion">
@@ -340,9 +372,13 @@
           <h2 class="title is-3">Conclusion</h2>
           <div class="content has-text-justified">
             <p>
-              High-stakes VLM fairness cannot be reduced to equal outcome rates. Equal treatment is not enough if the model treats all groups equally badly by making unsupported inferences.
-              A robust evaluation must ask both whether demographic groups are treated similarly and whether the model’s answers are justified by the available evidence.
-              FairLens provides a framework for this combined analysis and a foundation for future mitigation, including fairness-aware prompting, LLM-judge audits of open-ended responses, intersectional evaluation, and preference-based alignment.
+              High-stakes VLM fairness cannot be reduced to equal outcome rates. Demographic parity gaps remain small (about 1-3 pp), yet that is not evidence of similar risk: when baseline adverse rates are low, a small gap can still be a large rate ratio, and a model can treat groups similarly while labeling everyone unsafely.
+              Unsupported inference is the dominant failure. Many FairLens questions are underdetermined by a face: appearance alone does not justify claims about qualifications, threat, criminality, pain, urgency, or professional role. Abstention is a first-class evaluation target.
+              Soundness and open-ended bias also come apart, so correct multiple-choice behavior does not imply safe unconstrained generation.
+            </p>
+            <p>
+              The core contribution is the question suite rather than the image source: the benchmark transfers to any image set with demographic annotations.
+              Across eight VLMs, similar treatment across groups and refusal to infer high-stakes attributes from a face prove to be separate requirements, and current models satisfy the first far more often than the second.
             </p>
           </div>
         </div>
