@@ -1,9 +1,14 @@
 <h1 align="center">FairLens: Benchmarking Fairness in Vision-Language Models for High-Stakes Decision-Making</h1>
-
 <p align="center">
-  <a href="https://vectorinstitute.ai/"><img src="docs/assets/VectorLogo.png" alt="Vector Institute" height="64"></a>
+  <a href="https://vectorinstitute.ai/">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="docs/assets/VectorLogo.png">
+      <source media="(prefers-color-scheme: light)" srcset="docs/assets/VectorLogo_Black.png">
+      <img src="docs/assets/VectorLogo_Black.png" alt="Vector Institute" height="128">
+    </picture>
+  </a>
   &nbsp;&nbsp;&nbsp;&nbsp;
-  <img src="docs/assets/AIXPERTLogo.png" alt="AIXPERT" height="64">
+  <img src="docs/assets/AIXPERTLogo.png" alt="AIXPERT" height="96">
 </p>
 
 <p align="center">
