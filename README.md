@@ -134,14 +134,14 @@ Judge tables are written under `results/<model>/`.
 If you use this dataset or pipeline in your research, please cite:
 
 ```bibtex
-@misc{fairlens2026,
-  title        = {FairLens: Benchmarking Fairness in Vision-Language Models for High-Stakes Decision-Making},
-  author       = {Khazaie, Vahid Reza and Radwan, Ahmed Y. and Raza, Shaina},
-  year         = {2026},
-  eprint       = {xxxx.xxxxx},
-  archivePrefix= {arXiv},
-  primaryClass = {cs.CV},
-  note         = {Coming soon}
+@misc{khazaie2026fairlensbenchmarkingfairnessvisionlanguage,
+      title={FairLens: Benchmarking Fairness in Vision-Language Models for High-Stakes Decision-Making}, 
+      author={Vahid Reza Khazaie and Ahmed Y. Radwan and Shaina Raza},
+      year={2026},
+      eprint={2609.01691},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2609.01691}, 
 }
 ```
 
