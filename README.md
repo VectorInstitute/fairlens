@@ -7,8 +7,9 @@
 </p>
 
 <p align="center">
-  <a href="https://arxiv.org/abs/xxxx.xxxxx"><img src="https://img.shields.io/badge/arXiv-xxxx.xxxxx-b31b1b.svg" alt="arXiv"></a>
-  <a href="https://github.com/VectorInstitute/fairlens"><img src="https://img.shields.io/badge/Code-GitHub-181717.svg" alt="Code"></a>
+<a href="https://arxiv.org/abs/2609.01691">
+  <img src="https://img.shields.io/badge/arXiv-2609.01691-b31b1b.svg" alt="arXiv">
+</a> <a href="https://github.com/VectorInstitute/fairlens"><img src="https://img.shields.io/badge/Code-GitHub-181717.svg" alt="Code"></a>
   <a href="https://huggingface.co/datasets/vector-institute/fairlens"><img src="https://img.shields.io/badge/Dataset-Hugging%20Face-FFD21E.svg" alt="Dataset"></a>
   <a href="docs/index.html"><img src="https://img.shields.io/badge/Project%20page-docs-2563eb.svg" alt="Project page"></a>
 </p>
